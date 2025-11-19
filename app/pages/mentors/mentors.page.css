@@ -1,0 +1,127 @@
+/* app/pages/mentors/mentors.page.css */
+
+/* ریشه صفحه منتورها */
+.haf-mentors-page {
+  padding: 24px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: radial-gradient(circle at top left, #e0f7f4 0, #f6faf9 40%, #edf2f7 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* هدر بالا */
+.haf-mentors-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.haf-mentors-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 4px 0;
+}
+
+.haf-mentors-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.haf-mentors-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* فیلترها */
+.haf-mentors-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* اکشن‌های فیلتر */
+.haf-mentors-filter-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* جدول منتورها */
+.haf-mentors-table-wrapper {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* سلول نام منتور */
+.haf-mentor-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* آواتار کوچک (قابل استفاده از استایل دانشجو) */
+.haf-avatar-mini {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #e5e7eb;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-left: 10px;
+  overflow: hidden;
+}
+
+.haf-avatar-mini__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.haf-mentor-name {
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 2px;
+}
+
+.haf-mentor-tagline {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+/* ریسپانسیو */
+@media (max-width: 1024px) {
+  .haf-mentors-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .haf-mentors-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .haf-filters-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .haf-mentors-page {
+    padding: 16px;
+  }
+
+  .haf-filters-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,247 @@
+/* Ham-Afzar Auth Layout — 70/30 split, full height, RTL-first */
+@font-face{
+  font-family: Vazirmatn;
+  font-style: normal;
+  font-weight: 400;
+  src: local('Vazirmatn'), local('Vazirmatn Regular');
+  font-display: swap;
+}
+html, body { 
+  height: 100%;
+  overflow: hidden;     /* جلوگیری از اسکرول */
+}
+body { margin: 0; } 
+:root{
+  --ha-primary:#02AD82;
+  --ha-bg:#F6FAF9;
+  --ha-bg-soft:#F3F7F6;
+  --ha-white:#FFFFFF;
+  --ha-text:#0F172A;
+  --ha-muted:#6B7280;
+  --ha-border:#D3D5DF;
+  --radius:18px;
+  --shadow:0 12px 28px rgba(0,0,0,.06);
+}
+
+*{ box-sizing:border-box; }
+.rtl{ direction: ltr; }
+.ha-auth{
+    height: 100vh;
+  min-height:100dvh;
+  background: var(--ha-bg);
+  font-family: Vazirmatn, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color: var(--ha-text);
+  display:grid;
+  place-items:stretch;
+}
+
+.ha-shell{
+height: 100vh;
+  display:grid;
+  grid-template-columns: 7fr 3fr; /* 70% / 30% */
+  min-height:100dvh;
+}
+
+/* LEFT — Slider */
+.ha-left{
+  background: linear-gradient(180deg, var(--ha-bg-soft), #fff);
+  border-left: 1px solid var(--ha-border);
+  display:grid;
+  place-items:center;
+  position:relative;
+  overflow:hidden;
+}
+.ha-slider{
+  width:min(860px, 92%);
+  height:min(540px, 70vh);
+  position:relative;
+  border-radius:24px;
+  background:#0E2320;
+  box-shadow: var(--shadow);
+  isolation:isolate;
+}
+.ha-slide{
+  position:absolute; inset:0;
+  display:grid; place-items:center;
+  padding:40px;
+  color:#E7FFFA;
+  opacity:0; transform:scale(.98);
+  transition: opacity .5s ease, transform .5s ease;
+  background-size:cover; background-position:center;
+}
+.ha-slide.is-active{ opacity:1; transform:scale(1); }
+.ha-slide::after{
+  content:"";
+  position:absolute; inset:0;
+  background: radial-gradient(800px 400px at 10% 10%, rgba(2,173,130,.18), transparent 60%);
+  z-index:0;
+}
+.ha-slide__inner{ position:relative; z-index:1; text-align:center; max-width:720px; }
+.ha-slide__title{ font-size:30px; font-weight:800; margin:0 0 8px; }
+.ha-slide__desc{ font-size:16px; opacity:.95; margin:0; }
+
+.ha-slider__bullets{
+  position:absolute; bottom:18px; inset-inline:0; display:flex; justify-content:center; gap:10px; z-index:2;
+}
+.dot{ width:10px; height:10px; border-radius:999px; background:#96B7AE; border:none; cursor:pointer; }
+.dot.active{ background: var(--ha-primary); transform:scale(1.2); }
+
+.ha-slider__controls{
+  position:absolute; inset-inline:0; top:50%; translate:0 -50%;
+  display:flex; justify-content:space-between; align-items:center; padding:0 10px; z-index:2;
+}
+.ctrl{
+  width:36px; height:36px; border-radius:10px;
+  border:1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.08);
+  color:#fff; cursor:pointer;
+  backdrop-filter: blur(6px);
+}
+
+/* RIGHT — Login */
+.ha-right{
+  background: var(--ha-white);
+  display:grid; place-items:center;
+}
+.ha-right__inner{
+  width:min(420px, 88%);
+  margin-inline:auto;
+}
+.ha-title{ font-size:22px; font-weight:800; margin:0 0 8px; }
+.ha-subtitle{ font-size:13px; color: var(--ha-muted); margin:0 0 24px; }
+
+.ha-form{ display:grid; gap:16px; }
+.ha-field{ position:relative; display:grid; gap:8px; }
+.ha-label{ font-size:12px; color:#374151; }
+.ha-input{
+  height:46px; border-radius:12px; padding:0 44px 0 14px;
+  border:1px solid var(--ha-border); outline:none; background:#fff;
+  transition:border .15s ease, box-shadow .15s ease;
+}
+.ha-input:focus{ border-color: var(--ha-primary); box-shadow: 0 0 0 3px rgba(2,173,130,.18); }
+.ha-toggle{
+  position:absolute; right:10px; top:34px; height:28px; padding:0 8px;
+  border-radius:8px; border:1px solid transparent; background:transparent; cursor:pointer; font-size:12px;
+  color:#4b5563;
+}
+.ha-toggle:hover{ border-color: var(--ha-border); }
+
+.ha-btn{
+  height:46px; border-radius:12px; border:1px solid transparent; cursor:pointer; font-weight:800;
+  display:inline-flex; align-items:center; justify-content:center; width:100%;
+  transition: transform .15s ease, filter .15s ease;
+}
+.ha-btn--primary{ background: var(--ha-primary); color:#fff; box-shadow: 0 8px 20px rgba(2,173,130,.25); }
+.ha-btn--primary:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+.ha-btn--primary:disabled{ opacity:.6; cursor:not-allowed; }
+
+.ha-foot{ margin-top:12px; font-size:12px; color: var(--ha-muted); }
+.ha-link{ color: var(--ha-primary); text-decoration: none; border-bottom:1px dashed rgba(2,173,130,.5); }
+.ha-link:hover{ border-bottom-color: transparent; }
+
+/* Responsive */
+@media (max-width: 1024px){
+  .ha-shell{ grid-template-columns: 1fr; }
+  .ha-left{ order:2; min-height:46vh; }
+  .ha-right{ order:1; }
+  .ha-slider{ height:44vh; width:94%; }
+}
+/* ========== Mobile Minimal UI (≤ 768px) ========== */
+@media (max-width: 768px){
+
+  /* ارتفاع واقعی موبایل + نوارهای امن آیفون */
+  html, body { height: 100%; overflow: hidden; }
+  .ha-auth{ height: 100svh; padding: env(safe-area-inset-top) env(safe-area-inset-right)
+                                 env(safe-area-inset-bottom) env(safe-area-inset-left); }
+  .ha-shell{
+    height: 100svh;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "right"
+      "left";   /* اول فرم، بعد اسلایدر */
+  }
+
+  /* فرم مینیمال */
+  .ha-right{
+    background: #fff;
+    box-shadow: none;
+  }
+  .ha-right__inner{
+    width: min(440px, 92%);
+    padding: 20px 0;   /* تنفس بیشتر */
+  }
+  .ha-title{ font-size: 20px; font-weight: 900; margin-bottom: 6px; }
+  .ha-subtitle{ font-size: 12.5px; color: var(--ha-muted); margin-bottom: 18px; }
+
+  .ha-form{ gap: 14px; }
+  .ha-input{
+    height: 50px;
+    border-radius: 14px;
+    padding: 0 48px 0 14px; /* فضای دکمه نمایش پسورد سمت راست */
+    border: 1px solid #E6E8EF;
+    background: #fff;
+  }
+  .ha-input:focus{ border-color: var(--ha-primary); box-shadow: 0 0 0 3px rgba(2,173,130,.16); }
+
+  .ha-toggle{
+    right: 12px; top: 36px;
+    height: 30px; padding: 0 10px;
+    font-size: 12px; border-radius: 10px;
+  }
+
+  .ha-btn{
+    height: 52px;
+    border-radius: 14px;
+    font-weight: 900;
+    letter-spacing: .2px;
+  }
+  .ha-btn--primary{ box-shadow: 0 8px 18px rgba(2,173,130,.22); }
+
+  .ha-foot{ font-size: 12px; opacity: .9; margin-top: 10px; }
+  .ha-link{ border-bottom-color: rgba(2,173,130,.4); }
+
+  /* اسلایدر مینیمال */
+  .ha-left{
+    background: linear-gradient(180deg, var(--ha-bg-soft), #fff);
+    border-left: none;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .ha-slider{
+    width: 92%;
+    height: 36vh;                 /* جمع‌وجور و خوش‌فرم */
+    border-radius: 18px;
+    background: #0E2320;
+    box-shadow: 0 10px 22px rgba(0,0,0,.08);
+  }
+  .ha-slide__title{ font-size: 22px; }
+  .ha-slide__desc{ font-size: 13.5px; opacity: .95; }
+
+  /* دکمه‌های جهت: بزرگ و لمسی */
+  .ha-slider__controls{ 
+    top: auto; bottom: 10px; translate: 0 0;
+    padding-inline: 10px;
+  }
+  .ctrl{
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: rgba(255,255,255,.10);
+    backdrop-filter: blur(6px);
+  }
+
+  /* نقاط ناوبری: کمی بزرگ‌تر و فاصله‌دار */
+  .ha-slider__bullets{ bottom: 56px; gap: 12px; }
+  .dot{ width: 11px; height: 11px; }
+  .dot.active{ transform: scale(1.25); }
+
+  /* برای جلوگیری از اسکرول ناخواسته هنگام کوچک‌ترین تفاوت‌های ارتفاع */
+  .ha-left{ min-height: 42vh; }
+}
+
+/* ========== Very Small Phones (≤ 380px) ========== */
+@media (max-width: 380px){
+  .ha-right__inner{ width: 94%; }
+  .ha-title{ font-size: 18px; }
+  .ha-slide__title{ font-size: 20px; }
+  .ha-slider{ height: 34vh; }
+}

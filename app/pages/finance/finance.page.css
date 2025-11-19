@@ -1,0 +1,375 @@
+/* ریشه صفحه مالی */
+.haf-finance-page {
+  padding: 24px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: radial-gradient(circle at top left, #e0f7f4 0, #f6faf9 40%, #edf2f7 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* هدر */
+.haf-finance-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.haf-finance-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.haf-finance-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.haf-finance-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* کارت‌ها عمومی */
+.haf-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 18px;
+  border: 1px solid rgba(209, 213, 219, 0.8);
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.08);
+  padding: 16px 18px;
+  backdrop-filter: blur(12px);
+}
+
+.haf-card--soft {
+  background: #ffffff;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.04);
+}
+
+.haf-card--glass {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(16px);
+}
+
+/* دکمه‌ها */
+.haf-btn {
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 7px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.haf-btn--primary {
+  background: linear-gradient(90deg, #059669, #10b981);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(16, 185, 129, 0.35);
+}
+
+.haf-btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(16, 185, 129, 0.45);
+}
+
+.haf-btn--sm {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+/* چیپ‌ها */
+.haf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.03);
+  font-size: 12px;
+  color: #374151;
+}
+
+.haf-chip strong {
+  font-weight: 700;
+}
+
+.haf-chip--soft {
+  background: rgba(5, 150, 105, 0.06);
+  color: #047857;
+}
+
+/* KPI Row */
+.haf-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.haf-kpi-item {
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+}
+
+.haf-kpi-label {
+  font-size: 11px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.haf-kpi-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.haf-kpi-value--danger {
+  color: #b91c1c;
+}
+
+/* Tabs */
+.haf-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.haf-tabs__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.haf-tabs__btn {
+  border: none;
+  border-radius: 999px;
+  background: #f3f4f6;
+  color: #111827;
+  font-size: 13px;
+  padding: 7px 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.haf-tabs__btn--active {
+  background: #02ad82;
+  color: #ffffff;
+}
+
+.haf-tabs__icon {
+  font-size: 14px;
+}
+
+.haf-tabs__panels {
+  margin-top: 4px;
+}
+
+.haf-tabs__panel {
+  margin-top: 4px;
+}
+
+.haf-tabs__panel-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: #0f172a;
+}
+
+.haf-tabs__panel-desc {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0 0 10px;
+}
+
+/* Grid helpers */
+.haf-grid-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 14px;
+}
+
+.haf-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.haf-mt {
+  margin-top: 10px;
+}
+
+.haf-mt-lg {
+  margin-top: 16px;
+}
+
+/* Chart rows */
+.haf-chart-rows {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.haf-chart-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 110px;
+  gap: 8px;
+  align-items: center;
+}
+
+.haf-chart-row__label {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.haf-chart-row__bar-wrap {
+  background: #f3f4f6;
+  border-radius: 999px;
+  overflow: hidden;
+  height: 8px;
+}
+
+.haf-chart-row__bar {
+  height: 100%;
+  background: linear-gradient(90deg, #02ad82, #22c55e);
+  width: var(--bar-width, 0%);
+  transition: width 0.25s ease-out;
+}
+
+.haf-chart-row__value {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Table */
+.haf-table-wrapper {
+  overflow-x: auto;
+}
+
+.haf-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.haf-table thead {
+  background: #f8fafc;
+}
+
+.haf-table th,
+.haf-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.haf-table th {
+  font-weight: 600;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.haf-empty-state {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 12px;
+  padding: 8px 0;
+}
+
+/* Link button */
+.haf-link-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 12px;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.haf-link-btn:hover {
+  text-decoration: underline;
+}
+
+/* Assets & expenses helpers */
+.haf-assets-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.haf-assets-label {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.haf-assets-value {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.haf-expenses-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.haf-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* text helpers */
+.haf-text-danger {
+  color: #ef4444;
+}
+
+.haf-text-success {
+  color: #059669;
+}
+
+.haf-text-strong {
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .haf-kpi-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .haf-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .haf-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .haf-finance-page {
+    padding: 16px;
+  }
+  .haf-finance-header {
+    flex-direction: column;
+  }
+}

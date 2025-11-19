@@ -1,0 +1,1061 @@
+/* تم کلی هم‌افزار */
+:root {
+  --haf-primary: #02ad82;
+  --haf-bg: #035665;
+  --haf-surface: #ffffff;
+  --haf-border: #d3d5df;
+  --haf-text: #0f172a;
+  --haf-muted: #6b7280;
+  --haf-radius-xl: 18px;
+}
+
+/* سایدبار */
+.haf-sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #002228 0%, #041826 45%, #035665 100%);
+  color: #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 14px;
+  gap: 18px;
+  position: sticky;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+}
+
+.haf-sidebar--collapsed {
+  width: 80px;
+}
+
+.haf-sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.haf-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.haf-logo__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, #34d399, #059669, #ffffff);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 18px;
+  color: white;
+}
+
+.haf-logo__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.haf-logo__title {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.haf-logo__subtitle {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.haf-sidebar__toggle {
+  border: none;
+  outline: none;
+  border-radius: 999px;
+  width: 26px;
+  height: 26px;
+  background: rgba(15, 23, 42, 0.8);
+  color: #e5e7eb;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ناوبری سایدبار */
+.haf-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.haf-nav-item {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #cbd5f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease, color 0.15s ease;
+  font-size: 13px;
+}
+
+.haf-nav-item__icon {
+  font-size: 16px;
+}
+
+.haf-nav-item__label {
+  flex: 1;
+  text-align: right;
+}
+
+.haf-nav-item__badge {
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  font-size: 11px;
+}
+
+.haf-nav-item:hover {
+  background: rgba(15, 23, 42, 0.8);
+  transform: translateY(-1px);
+}
+
+.haf-nav-item--active {
+  background: linear-gradient(90deg, #059669, #10b981);
+  color: white;
+}
+
+/* فوتر سایدبار */
+.haf-sidebar__footer {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid rgba(55, 65, 81, 0.8);
+}
+
+.haf-user-mini {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.haf-user-mini__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: #f9fafb;
+  color: #111827;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.haf-user-mini__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.haf-user-mini__name {
+  font-size: 13px;
+}
+
+.haf-user-mini__role {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* بخش اصلی */
+
+
+.haf-main__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.haf-main__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--haf-text);
+}
+
+.haf-main__subtitle {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--haf-muted);
+}
+
+.haf-main__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.haf-main__user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(226, 232, 240, 0.8);
+}
+
+.haf-main__user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--haf-primary);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.haf-main__user-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.haf-main__user-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.haf-main__user-role {
+  font-size: 11px;
+  color: var(--haf-muted);
+}
+
+/* دکمه‌ها */
+.haf-btn {
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.haf-btn--ghost {
+  background: rgb(109, 231, 240)44;
+  border: 1px solid var(--haf-border);
+  color: var(--haf-text);
+}
+
+.haf-btn--danger {
+  background: #ef4444;
+  color: white;
+}
+
+.haf-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+}
+
+/* سکشن‌ها و گریدها */
+.haf-section {
+  margin-top: 4px;
+}
+
+.haf-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.haf-grid--stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.haf-grid--two {
+  grid-template-columns: 1.1fr 1.1fr;
+}
+
+/* کارت‌ها */
+.haf-card {
+  background: linear-gradient(180deg, #046c7e2a 30%, #0022281a 100%);
+  border-radius: var(--haf-radius-xl);
+  border: none;
+  padding: 14px 16px;
+  box-shadow: 0 10px 15px rgba(15, 23, 42, 0.192);
+}
+
+.haf-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.haf-card__title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.haf-card__badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #3730a3;
+  font-size: 11px;
+}
+
+/* کارت‌های آمار */
+.haf-stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.haf-stat-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.haf-stat-card__icon {
+  font-size: 20px;
+}
+
+.haf-stat-card__chip {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e5e7eb;
+}
+
+.haf-stat-card__chip--up {
+  background: rgba(16, 185, 129, 0.1);
+  color: #047857;
+}
+
+.haf-stat-card__chip--down {
+  background: rgba(239, 68, 68, 0.08);
+  color: #b91c1c;
+}
+
+.haf-stat-card__body {
+  margin-top: 10px;
+}
+
+.haf-stat-card__label {
+  font-size: 12px;
+  color: #058097 ;
+}
+
+.haf-stat-card__value {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.haf-stat-card__delta {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #ffffff;
+}
+
+/* لیست‌ها */
+.haf-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.haf-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: linear-gradient(#d8f8f5,transparent);
+}
+
+.haf-list-item__main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.haf-list-item__title {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.haf-list-item__meta {
+  font-size: 11px;
+  color: var(--haf-muted);
+  display: flex;
+  gap: 8px;
+}
+
+/* چیپ‌ها */
+.haf-chip {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.haf-chip--success {
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+}
+
+.haf-chip--neutral {
+  background: rgba(59, 130, 246, 0.08);
+  color: #1d4ed8;
+}
+
+/* جدول ساده */
+.haf-table {
+  margin-top: 10px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 15px rgba(15, 23, 42, 0.192);
+}
+
+.haf-table__head,
+.haf-table__row {
+  display: grid;
+  grid-template-columns: 1.1fr 1.2fr 0.9fr 0.9fr;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.haf-table__head {
+  background: #0356655b;
+  font-weight: 600;
+}
+
+.haf-table__row:nth-child(even) {
+  background: #f9fafb;
+}
+
+/* وضعیت‌ها */
+.haf-status {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  text-align: center;
+}
+
+.haf-status--paid {
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+}
+
+.haf-status--pending {
+  background: rgba(234, 179, 8, 0.12);
+  color: #92400e;
+}
+
+.haf-status--overdue {
+  background: rgba(239, 68, 68, 0.12);
+  color: #b91c1c;
+}
+
+/* ریسپانسیو */
+@media (max-width: 1024px) {
+  .haf-grid--stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .haf-grid--two {
+    grid-template-columns: 1fr;
+  }
+
+  .haf-main__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .haf-dashboard {
+    flex-direction: column;
+  }
+
+  .haf-sidebar {
+    position: relative;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .haf-sidebar--collapsed {
+    width: 100%;
+  }
+
+  .haf-sidebar__nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .haf-main {
+    padding: 16px;
+  }
+
+  .haf-grid--stats {
+    grid-template-columns: 1fr;
+  }
+}
+/* === Student profile page === */
+.haf-student-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.haf-profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.haf-profile-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.haf-profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, #34d399, #059669, #022c22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.haf-profile-avatar-fallback {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: #ecfdf5;
+  color: #065f46;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.haf-profile-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.haf-profile-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.haf-profile-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.haf-profile-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.haf-profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.haf-profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.haf-stat-card {
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: rgba(15, 23, 42, 0.03);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+.haf-stat-card__label {
+  font-size: 11px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.haf-stat-card__value {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.haf-text-danger {
+  color: #b91c1c;
+}
+
+.haf-text-success {
+  color: #065f46;
+}
+
+.haf-profile-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.haf-profile-tab {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  padding: 6px 14px;
+  font-size: 12px;
+  background: white;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.haf-profile-tab--active {
+  background: linear-gradient(90deg, #059669, #10b981);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.haf-profile-section {
+  margin-top: 4px;
+}
+
+.haf-section-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #0f172a;
+}
+
+.haf-section-helper {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.haf-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 18px;
+}
+
+.haf-field__value {
+  font-size: 13px;
+  color: #111827;
+}
+
+.haf-field--full {
+  grid-column: 1 / -1;
+}
+
+.haf-finance-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.haf-finance-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.02);
+}
+
+.haf-profile-messages {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .haf-student-profile {
+    padding: 10px;
+  }
+
+  .haf-profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .haf-profile-stats {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .haf-profile-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+/* ===========================
+   پروفایل دانشجو + تب‌ها
+   =========================== */
+
+.haf-student-profile {
+  padding: 16px 20px 24px;
+}
+
+.haf-student-profile__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.haf-student-profile__title-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.haf-student-profile__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.haf-student-profile__subtitle {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.haf-student-profile__id {
+  margin-right: 8px;
+  font-family: monospace;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.haf-student-profile__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.haf-student-profile__body {
+  margin-top: 16px;
+}
+
+.haf-student-profile__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(260px, 0.9fr);
+  gap: 16px;
+}
+
+/* ستون‌ها در موبایل زیر هم */
+@media (max-width: 900px) {
+  .haf-student-profile__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* کارت هویت */
+.haf-student-identity {
+  padding: 16px 18px 14px;
+}
+
+.haf-student-identity__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.haf-avatar-lg {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, #34d399, #059669, #022c22);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ecfdf5;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.haf-student-identity__name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.haf-student-identity__meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.haf-student-identity__details {
+  margin-top: 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.haf-detail-row {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 8px;
+  font-size: 13px;
+  align-items: baseline;
+}
+
+.haf-detail-row dt {
+  color: #6b7280;
+}
+
+.haf-detail-row dd {
+  color: #111827;
+}
+
+/* تب‌ها */
+
+.haf-tabs {
+  margin-top: 18px;
+}
+
+.haf-tabs__list {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.haf-tabs__btn {
+  border: none;
+  outline: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  background: transparent;
+  color: #6b7280;
+  transition: all 0.16s ease;
+}
+
+.haf-tabs__btn:hover {
+  background: rgba(15, 23, 42, 0.05);
+  color: #111827;
+}
+
+.haf-tabs__btn--active {
+  background: linear-gradient(90deg, #059669, #10b981);
+  color: #ecfdf5;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+
+.haf-tabs__panels {
+  margin-top: 12px;
+}
+
+.haf-tabs__panel {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px 18px 18px;
+  border: 1px solid #e5e7eb;
+}
+
+.haf-tabs__panel-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.haf-tabs__panel-desc {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.haf-mt {
+  margin-top: 12px;
+}
+
+.haf-mt-lg {
+  margin-top: 18px;
+}
+
+/* شبکه دو ستونه در تب‌ها */
+.haf-grid-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .haf-grid-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* کارت‌ها */
+
+.haf-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  padding: 14px 16px;
+}
+
+.haf-card--soft {
+  background: #f9fafb;
+}
+
+.haf-card--danger {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+.haf-card--glass {
+  background: radial-gradient(circle at top, rgba(34, 197, 94, 0.12), rgba(15, 23, 42, 0.92));
+  border-color: rgba(148, 163, 184, 0.4);
+  color: #e5e7eb;
+}
+
+.haf-card__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: inherit;
+}
+
+.haf-empty-state {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* وضعیت / پیوست‌ها */
+
+.haf-status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.haf-status-pill[data-variant='inactive'] {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+/* کارت خلاصه کنار صفحه */
+
+.haf-student-profile__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.haf-summary-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.haf-summary-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.haf-summary-list span {
+  color: #e5e7eb;
+}
+
+.haf-summary-list strong {
+  color: #bbf7d0;
+  font-family: monospace;
+}
+
+/* متریک‌های مالی */
+
+.haf-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .haf-metrics-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.haf-metric-card {
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  padding: 10px 12px;
+  background: #f9fafb;
+}
+
+.haf-metric-card__label {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.haf-metric-card__value {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  font-family: Vazirmatn, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* دکمه‌های عمومی (همون استایل‌هایی که قبلاً داشتی، اینجا تکمیل می‌کنیم در صورت نیاز) */
+
+.haf-btn--sm {
+  padding: 4px 10px;
+  font-size: 12px;
+}

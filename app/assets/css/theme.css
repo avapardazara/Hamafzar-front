@@ -1,0 +1,100 @@
+:root {
+  /* رنگ‌های پایه هم‌افزار */
+  --haf-primary: #02ad82;
+  --haf-bg: #035665;
+  --haf-surface: #ffffff;
+  --haf-border: #d3d5df;
+  --haf-text: #0f172a;
+  --haf-muted: #6b7280;
+  --haf-radius-xl: 18px;
+
+  /* رنگ‌های خاص داشبورد / کارت‌ها */
+  --haf-main-radial: #046c7e57;
+  --haf-card-bg-top: #046c7e2a;
+  --haf-card-bg-bottom: #0022281a;
+}
+
+/* بک‌گراند کلی سایت (همون تمی که تو داشبورد داشتی) */
+body {
+  margin: 0;
+  background: radial-gradient(
+    circle at top left,
+    #e0f7f1 0,
+    #f6faf9 40%,
+    #f6faf9 100%
+  );
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Vazirmatn", sans-serif;
+  color: var(--haf-text);
+}
+.haf-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: radial-gradient(
+    circle at top left,
+    #e0f7f1 0,
+    #f6faf9 40%,
+    #f6faf9 100%
+  );
+  font-family: "Vazirmatn", sans-serif;
+  color: var(--haf-text);
+}
+
+/* بخش راست صفحه (main) */
+.haf-main {
+  flex: 1;
+  background: radial-gradient(#046c7e57, transparent);
+  padding: 20px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.haf-main__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--haf-text);
+}
+.haf-main__subtitle {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--haf-muted);
+}
+.haf-main__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.haf-main__user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(226, 232, 240, 0.8);
+}
+.haf-main__user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--haf-primary);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+.haf-main__user-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.haf-main__user-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.haf-main__user-role {
+  font-size: 11px;
+  color: var(--haf-muted);
+}

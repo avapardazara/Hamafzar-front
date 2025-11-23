@@ -682,7 +682,7 @@ import { useRoute, useRouter } from "vue-router";
 
 const API_BASE = "http://localhost:5000";
 
-// هدر JWT از کوکی ha_token
+// 🟢 هدر JWT از کوکی ha_token
 function getAuthHeaders() {
   const token = useCookie("ha_token", { path: "/" });
   const headers = {};
@@ -692,7 +692,7 @@ function getAuthHeaders() {
   return headers;
 }
 
-// هندل کردن 401 (مثل courses.page.js)
+// 🟠 هندل کردن 401 (مثل courses.page.js)
 function handleUnauthorized(res, data, router) {
   if (!res) return;
   if (res.status === 401 || data?.error === "unauthorized") {
@@ -704,13 +704,20 @@ function handleUnauthorized(res, data, router) {
     throw new Error("unauthorized");
   }
 }
+
 definePageMeta({
   middleware: ["auth"],
 });
 
 const route = useRoute();
 const router = useRouter();
-const studentId = computed(() => Number(route.params.id));
+
+// 🆔 شناسه دانشجو از route
+const studentId = computed(() => {
+  const raw = route.params.id || route.query.id;
+  const n = Number(raw);
+  return Number.isNaN(n) ? null : n;
+});
 
 // --- استیت اصلی پروفایل دانشجو ---
 const loading = ref(false);
@@ -719,12 +726,14 @@ const student = ref(null);
 const stats = ref(null);
 const finance = ref(null);
 
+// 🔢 فرمت عدد
 function formatNumber(value) {
   const n = Number(value || 0);
   if (Number.isNaN(n)) return "0";
   return new Intl.NumberFormat("fa-IR").format(n);
 }
 
+// 📅 فرمت تاریخ
 function formatDate(value) {
   if (!value) return "—";
   const d = new Date(value);
@@ -732,6 +741,7 @@ function formatDate(value) {
   return d.toLocaleDateString("fa-IR");
 }
 
+// 🔠 حروف ابتدای نام برای آواتار
 function getInitials(stu) {
   if (!stu) return "?";
   const full =
@@ -742,15 +752,18 @@ function getInitials(stu) {
   return (parts[0][0] || "") + (parts[1][0] || "");
 }
 
+// 🔙 برگشت به لیست
 function goBack() {
   router.push("/students");
 }
 
+// ✏️ رفتن به صفحه ویرایش
 function goToEdit() {
   if (!studentId.value) return;
   router.push(`/students/${studentId.value}/edit`);
 }
 
+// 📥 گرفتن پروفایل دانشجو
 async function fetchStudentProfile() {
   if (!studentId.value) return;
   loading.value = true;
@@ -761,7 +774,7 @@ async function fetchStudentProfile() {
       method: "GET",
       headers: {
         ...getAuthHeaders(),
-        "Content-Type": "application/json",
+        Accept: "application/json",
       },
       credentials: "include",
     });
@@ -774,15 +787,34 @@ async function fetchStudentProfile() {
         res.status,
         data
       );
-      // 401 → خروج لاگین و ریدایرکت
       handleUnauthorized(res, data, router);
       throw new Error(data?.error || "خطا در دریافت اطلاعات دانشجو");
     }
 
-    // پر کردن stateها
-    student.value = data;
-    stats.value = data.stats || null;
-    finance.value = data.finance || null;
+    const first_name = (data.first_name || "").trim();
+    const last_name = (data.last_name || "").trim();
+    const full_name = (data.full_name || `${first_name} ${last_name}`).trim();
+
+    student.value = {
+      ...data,
+      first_name,
+      last_name,
+      full_name,
+    };
+
+    stats.value = data.stats || {
+      courses_count: data.enrollments_count || 0,
+      skills_count: 0,
+      balance: data.balance || 0,
+    };
+
+    finance.value = data.finance || {
+      totals: {
+        balance: data.balance || 0,
+        installments_active: 0,
+        paid: 0,
+      },
+    };
   } catch (err) {
     console.error("[student-profile] fetchStudentProfile exception", err);
     if (err.message !== "unauthorized") {
@@ -793,13 +825,10 @@ async function fetchStudentProfile() {
   }
 }
 
-onMounted(() => {
-  fetchStudentProfile();
-});
-
 // --- تب‌ها ---
 const activeTab = ref("info");
 
+// 🔐 تشخیص ادمین
 const isAdmin = computed(() => {
   const role =
     (student.value?.current_user_role || student.value?.role || "")
@@ -808,7 +837,110 @@ const isAdmin = computed(() => {
   return role === "admin" || role === "superadmin";
 });
 
-// --- اقساط دانشجو ---
+// =======================
+//   دوره‌های دانشجو
+// =======================
+const coursesLoading = ref(false);
+const coursesError = ref(null);
+const courses = ref([]);
+
+async function fetchStudentCourses() {
+  if (!studentId.value) return;
+
+  coursesLoading.value = true;
+  coursesError.value = null;
+
+  try {
+    const url = `${API_BASE}/api/students/${studentId.value}/courses`;
+    console.log("[student-profile] fetch courses URL:", url);
+
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        ...getAuthHeaders(),
+        Accept: "application/json",
+      },
+      credentials: "include",
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      console.warn("[student-profile] fetch courses error", res.status, data);
+      handleUnauthorized(res, data, router);
+      throw new Error(data?.message || data?.error || "خطا در دریافت دوره‌های دانشجو");
+    }
+
+    courses.value = Array.isArray(data.items) ? data.items : [];
+  } catch (err) {
+    console.error("[student-profile] fetchStudentCourses exception", err);
+    if (err.message !== "unauthorized") {
+      coursesError.value =
+        err.message || "خطای ناشناخته در دریافت دوره‌های دانشجو";
+    }
+  } finally {
+    coursesLoading.value = false;
+  }
+}
+
+// =======================
+//   مهارت‌های دانشجو (فرانت)
+// =======================
+const skillsTech = ref([]); // ['Python', 'Vue.js', ...]
+const skillsSoft = ref([]); // [{ title, date, hours }, ...]
+
+function addTechSkill(title) {
+  const t = (title || "").trim();
+  if (!t) return;
+  skillsTech.value.push(t);
+}
+
+function removeTechSkill(index) {
+  skillsTech.value.splice(index, 1);
+}
+
+function addSoftSkill(payload) {
+  const title = (payload?.title || "").trim();
+  if (!title) return;
+
+  skillsSoft.value.push({
+    title,
+    date: (payload?.date || "").trim(),
+    hours: payload?.hours ? Number(payload.hours) : null,
+  });
+}
+
+function removeSoftSkill(index) {
+  skillsSoft.value.splice(index, 1);
+}
+
+// فرم مهارت‌ها
+const techSkillInput = ref("");
+const softSkillTitle = ref("");
+const softSkillDate = ref("");
+const softSkillHours = ref(null);
+
+function onAddTechSkill() {
+  if (!techSkillInput.value.trim()) return;
+  addTechSkill(techSkillInput.value);
+  techSkillInput.value = "";
+}
+
+function onAddSoftSkill() {
+  if (!softSkillTitle.value.trim()) return;
+  addSoftSkill({
+    title: softSkillTitle.value,
+    date: softSkillDate.value,
+    hours: softSkillHours.value,
+  });
+  softSkillTitle.value = "";
+  softSkillDate.value = "";
+  softSkillHours.value = null;
+}
+
+// =======================
+//   اقساط دانشجو
+// =======================
 const installmentsLoading = ref(false);
 const installmentsError = ref(null);
 const installmentItems = ref([]);
@@ -835,6 +967,7 @@ function formatStatus(status) {
 
 async function fetchStudentInstallments() {
   if (!studentId.value) return;
+
   installmentsLoading.value = true;
   installmentsError.value = null;
 
@@ -845,7 +978,7 @@ async function fetchStudentInstallments() {
         method: "GET",
         headers: {
           ...getAuthHeaders(),
-          "Content-Type": "application/json",
+          Accept: "application/json",
         },
         credentials: "include",
       }
@@ -877,12 +1010,23 @@ async function fetchStudentInstallments() {
   }
 }
 
+// واکنش به تغییر تب
 watch(
   () => activeTab.value,
   (val) => {
     if (val === "installments") {
       fetchStudentInstallments();
     }
+    if (val === "courses") {
+      fetchStudentCourses();
+    }
   }
 );
+
+// بارگذاری اولیه
+onMounted(() => {
+  fetchStudentProfile();
+  fetchStudentCourses();
+});
 </script>
+

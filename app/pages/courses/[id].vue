@@ -11,25 +11,15 @@
           ← بازگشت به لیست دوره‌ها
         </button>
         <div>
-          <h1 class="haf-student-profile__title">
-            پروفایل دوره
-          </h1>
-          <p
-            v-if="course"
-            class="haf-student-profile__subtitle"
-          >
+          <h1 class="haf-student-profile__title">پروفایل دوره</h1>
+          <p v-if="course" class="haf-student-profile__subtitle">
             {{ course.title }}
-            <span class="haf-student-profile__id">
-              ID: {{ course.id }}
-            </span>
+            <span class="haf-student-profile__id"> ID: {{ course.id }} </span>
           </p>
         </div>
       </div>
 
-      <div
-        v-if="course"
-        class="haf-student-profile__header-actions"
-      >
+      <div v-if="course" class="haf-student-profile__header-actions">
         <button
           type="button"
           class="haf-btn haf-btn--outline"
@@ -41,24 +31,15 @@
     </header>
 
     <!-- وضعیت لودینگ / خطا -->
-    <section
-      v-if="loading"
-      class="haf-card haf-card--soft haf-mt"
-    >
+    <section v-if="loading" class="haf-card haf-card--soft haf-mt">
       در حال بارگذاری پروفایل دوره...
     </section>
 
-    <section
-      v-else-if="error"
-      class="haf-card haf-card--danger haf-mt"
-    >
+    <section v-else-if="error" class="haf-card haf-card--danger haf-mt">
       {{ error }}
     </section>
 
-    <section
-      v-else-if="course"
-      class="haf-student-profile__body haf-mt"
-    >
+    <section v-else-if="course" class="haf-student-profile__body haf-mt">
       <!-- گرید اصلی: اطلاعات + ساید -->
       <div class="haf-student-profile__grid">
         <!-- ستون اصلی -->
@@ -66,7 +47,7 @@
           <!-- کارت هویت دوره -->
           <section class="haf-card haf-student-identity">
             <div class="haf-student-identity__header">
-              <div class="haf-course-cover" style="width: 200px; height: 120px;">
+              <div class="haf-course-cover" style="width: 200px; height: 120px">
                 <template v-if="course.cover_url">
                   <img
                     :src="course.cover_url"
@@ -88,11 +69,11 @@
                 <p class="haf-student-identity__meta">
                   منتور:
                   <span class="haf-mono">
-                    {{ course.mentor_name || 'منتور تعیین نشده' }}
+                    {{ course.mentor_name || "منتور تعیین نشده" }}
                   </span>
                   · ظرفیت:
                   <span class="haf-mono">
-                    {{ course.capacity ?? '—' }}
+                    {{ course.capacity ?? "—" }}
                   </span>
                 </p>
 
@@ -106,9 +87,15 @@
                   </span>
                   · بازه برگزاری:
                   <span class="haf-mono">
-                    {{ formatDate(course.start_date || course.start_date_gregorian) }}
+                    {{
+                      formatDate(
+                        course.start_date || course.start_date_gregorian
+                      )
+                    }}
                     تا
-                    {{ formatDate(course.end_date || course.end_date_gregorian) }}
+                    {{
+                      formatDate(course.end_date || course.end_date_gregorian)
+                    }}
                   </span>
                 </p>
               </div>
@@ -117,7 +104,7 @@
             <dl class="haf-student-identity__details">
               <div class="haf-detail-row">
                 <dt>توضیحات دوره</dt>
-                <dd>{{ course.description || 'توضیحاتی ثبت نشده است.' }}</dd>
+                <dd>{{ course.description || "توضیحاتی ثبت نشده است." }}</dd>
               </div>
               <div class="haf-detail-row">
                 <dt>وضعیت</dt>
@@ -144,7 +131,9 @@
               <button
                 type="button"
                 class="haf-tabs__btn"
-                :class="{ 'haf-tabs__btn--active': activeTab === 'overview' }"
+                :class="{
+                  'haf-tabs__btn--active active': activeTab === 'info',
+                }"
                 @click="activeTab = 'overview'"
               >
                 نمای کلی
@@ -153,7 +142,9 @@
               <button
                 type="button"
                 class="haf-tabs__btn"
-                :class="{ 'haf-tabs__btn--active': activeTab === 'sessions' }"
+                :class="{
+                  'haf-tabs__btn--active active': activeTab === 'sessions',
+                }"
                 @click="activeTab = 'sessions'"
               >
                 جلسات
@@ -162,7 +153,9 @@
               <button
                 type="button"
                 class="haf-tabs__btn"
-                :class="{ 'haf-tabs__btn--active': activeTab === 'students' }"
+                :class="{
+                  'haf-tabs__btn--active active': activeTab === 'students',
+                }"
                 @click="activeTab = 'students'"
               >
                 دانشجوها
@@ -171,7 +164,9 @@
               <button
                 type="button"
                 class="haf-tabs__btn"
-                :class="{ 'haf-tabs__btn--active': activeTab === 'finance' }"
+                :class="{
+                  'haf-tabs__btn--active active': activeTab === 'finance',
+                }"
                 @click="activeTab = 'finance'"
               >
                 مالی / اقساط
@@ -181,15 +176,11 @@
             <!-- محتوای تب‌ها -->
             <div class="haf-tabs__panels">
               <!-- تب نمای کلی -->
-              <section
-                v-if="activeTab === 'overview'"
-                class="haf-tabs__panel"
-              >
-                <h3 class="haf-tabs__panel-title">
-                  خلاصه اطلاعات دوره
-                </h3>
+              <section v-if="activeTab === 'overview'" class="haf-tabs__panel">
+                <h3 class="haf-tabs__panel-title">خلاصه اطلاعات دوره</h3>
                 <p class="haf-tabs__panel-desc">
-                  نمای کلی از اطلاعات کلیدی دوره، شامل بازه برگزاری، ظرفیت و وضعیت فعلی.
+                  نمای کلی از اطلاعات کلیدی دوره، شامل بازه برگزاری، ظرفیت و
+                  وضعیت فعلی.
                 </p>
 
                 <div class="haf-course-grid-2 haf-mt">
@@ -198,19 +189,31 @@
                     <dl class="haf-detail-list">
                       <div class="haf-detail-row">
                         <dt>تاریخ شروع</dt>
-                        <dd>{{ formatDate(course.start_date || course.start_date_gregorian) }}</dd>
+                        <dd>
+                          {{
+                            formatDate(
+                              course.start_date || course.start_date_gregorian
+                            )
+                          }}
+                        </dd>
                       </div>
                       <div class="haf-detail-row">
                         <dt>تاریخ پایان</dt>
-                        <dd>{{ formatDate(course.end_date || course.end_date_gregorian) }}</dd>
+                        <dd>
+                          {{
+                            formatDate(
+                              course.end_date || course.end_date_gregorian
+                            )
+                          }}
+                        </dd>
                       </div>
                       <div class="haf-detail-row">
                         <dt>ساعت برگزاری</dt>
                         <dd>
                           <span v-if="course.start_time || course.end_time">
-                            {{ course.start_time || '—' }}
+                            {{ course.start_time || "—" }}
                             تا
-                            {{ course.end_time || '—' }}
+                            {{ course.end_time || "—" }}
                           </span>
                           <span v-else>ثبت نشده</span>
                         </dd>
@@ -223,13 +226,13 @@
                     <dl class="haf-detail-list">
                       <div class="haf-detail-row">
                         <dt>شهریه هر دانشجو</dt>
-                        <dd>{{ formatNumber(course.fee_per_student || 0) }} تومان</dd>
+                        <dd>
+                          {{ formatNumber(course.fee_per_student || 0) }} تومان
+                        </dd>
                       </div>
                       <div class="haf-detail-row">
                         <dt>سهم منتور</dt>
-                        <dd>
-                          {{ course.mentor_share_percent ?? 0 }}%
-                        </dd>
+                        <dd>{{ course.mentor_share_percent ?? 0 }}%</dd>
                       </div>
                       <div class="haf-detail-row">
                         <dt>تعداد دانشجوهای ثبت‌نام‌شده</dt>
@@ -243,189 +246,221 @@
               <!-- تب جلسات -->
               <section
                 v-else-if="activeTab === 'sessions'"
-                class="haf-tabs__panel"
+                class="haf-profile-tab"
               >
-                <h3 class="haf-tabs__panel-title">
-                  جلسات دوره
-                </h3>
-                <p class="haf-tabs__panel-desc">
-                  این بخش شبیه صفحه «جلسات دوره» در بک‌اند است و لیست جلسات ثبت‌شده
-                  به‌همراه خلاصه حضور و غیاب را نشان می‌دهد. برای مدیریت کامل حضور و غیاب
-                  می‌توانی روی دکمه «حضور و غیاب» هر جلسه کلیک کنی.
-                </p>
-
-                <!-- KPI های جلسات -->
-                <div class="haf-metrics-grid haf-mt">
-                  <div class="haf-metric-card">
-                    <p class="haf-metric-card__label">تعداد کل جلسات</p>
-                    <p class="haf-metric-card__value">
-                      {{ formatNumber(sessionsStats.totalSessions) }}
-                    </p>
-                  </div>
-                  <div class="haf-metric-card">
-                    <p class="haf-metric-card__label">کل حضورهای ثبت‌شده</p>
-                    <p class="haf-metric-card__value">
-                      {{ formatNumber(sessionsStats.totalAttendance) }}
-                    </p>
-                  </div>
-                  <div class="haf-metric-card">
-                    <p class="haf-metric-card__label">حاضر / غایب</p>
-                    <p class="haf-metric-card__value">
-                      {{ formatNumber(sessionsStats.totalPresent) }} حاضر ·
-                      {{ formatNumber(sessionsStats.totalAbsent) }} غایب
-                    </p>
-                  </div>
-                </div>
-
-                <!-- جدول جلسات -->
-                <div class="haf-card haf-card--soft haf-mt">
-                  <table class="haf-table">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>تاریخ جلسه</th>
-                        <th>ساعت</th>
-                        <th>مدت (دقیقه)</th>
-                        <th>حضور / غیاب</th>
-                        <th>وضعیت</th>
-                        <th>اقدام</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-if="!sessions || sessions.length === 0">
-                        <td colspan="7" class="haf-table__empty">
-                          هنوز جلسه‌ای برای این دوره ثبت نشده است.
-                        </td>
-                      </tr>
-
-                      <tr
-                        v-for="(s, idx) in sessions"
-                        :key="s.id || idx"
+                <div class="haf-card haf-card--soft haf-sessions-card">
+                  <header class="haf-card-header haf-card-header--between">
+                    <div>
+                      <button
+                        class="haf-btn haf-btn--soft"
+                        :disabled="!todaySession"
+                        @click="goToTodaySession"
                       >
-                        <td>{{ idx + 1 }}</td>
-                        <td>
-                          {{ formatDate(s.session_date || s.date || s.date_gregorian || s.date_jalali) }}
-                        </td>
-                        <td>
-                          <span class="haf-mono">
-                            {{ s.start_time || '—' }}
+                        🌤️ جلسه امروز
+                      </button>
+                      <h3 class="haf-form-title">جلسات دوره</h3>
+                      <p class="haf-field__hint">
+                        لیست جلسات برنامه‌ریزی‌شده برای این دوره. برای ثبت حضور
+                        و غیاب می‌توانی از پنل قدیمی هم استفاده کنی.
+                      </p>
+                    </div>
+
+                    <div class="haf-card-header-actions">
+                      <button
+                        type="button"
+                        class="haf-btn haf-btn--secondary"
+                        :disabled="generatingSessions"
+                        @click="generateSessionsAndOpen"
+                      >
+                        {{
+                          generatingSessions
+                            ? "در حال تولید جلسات..."
+                            : "🗓️ تولید جلسات و رفتن به حضور و غیاب"
+                        }}
+                      </button>
+                    </div>
+                  </header>
+
+                  <!-- اینجا جدول یا لیست جلسات فعلی که قبلاً داشتی می‌مونه -->
+                  <div class="haf-table-wrapper" style="margin-top: 12px">
+                    <table v-if="sessions && sessions.length" class="haf-table">
+                      <thead>
+                        <tr>
+                          <th>تاریخ جلسه</th>
+                          <th>ساعت</th>
+                          <th>کلاس/اتاق</th>
+                          <th>توضیحات</th>
+                          <th>اقدامات</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="s in sessions" :key="s.id">
+                          <td>{{ formatDate(s.session_date || s.date) }}</td>
+                          <td>
+                            {{ formatTime(s.start_time) }}
                             <span v-if="s.end_time">
-                              تا {{ s.end_time }}
-                            </span>
-                          </span>
-                        </td>
-                        <td>
-                          <span class="haf-mono">
-                            {{ s.duration_minutes ?? '—' }}
-                          </span>
-                        </td>
-                        <td>
-                          {{ sessionAttendanceSummary(s) }}
-                        </td>
-                        <td>
-                          {{ formatSessionStatus(s) }}
-                        </td>
-                        <td class="haf-table__cell--actions">
-                          <a
-                            v-if="sessionAttendanceLink(s)"
-                            :href="sessionAttendanceLink(s)"
-                            target="_blank"
-                            rel="noopener"
-                            class="haf-btn haf-btn--ghost haf-btn--xs"
-                          >
-                            حضور و غیاب
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                              تا {{ formatTime(s.end_time) }}</span
+                            >
+                          </td>
+                          <td>{{ s.room || "—" }}</td>
+                          <td>{{ s.note || s.description || "—" }}</td>
+                          <td>
+                            <div class="haf-flex haf-gap-xs">
+                              <button
+                                class="haf-btn haf-btn--soft"
+                                @click="viewSession(s)"
+                              >
+                                نمایش
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <p v-else class="haf-field__hint">
+                      هنوز جلسه‌ای برای این دوره ثبت نشده است. از دکمه‌ی بالا
+                      برای تولید خودکار جلسات استفاده کن.
+                    </p>
+                  </div>
                 </div>
               </section>
-
               <!-- تب دانشجوها -->
               <section
                 v-else-if="activeTab === 'students'"
                 class="haf-tabs__panel"
               >
                 <h3 class="haf-tabs__panel-title">
-                  دانشجوهای ثبت‌نام‌شده
+                  مدیریت دانشجوهای ثبت‌نام‌شده
                 </h3>
                 <p class="haf-tabs__panel-desc">
-                  این بخش خلاصه‌ای از دانشجوهای ثبت‌نام‌شده در دوره را نمایش می‌دهد.
-                  در مراحل بعدی، امکان مدیریت مستقیم ثبت‌نام‌ها از همین صفحه اضافه می‌شود.
+                  از این بخش می‌توانی دانشجوهای فعال را به دوره اضافه کنی یا
+                  ثبت‌نام‌های موجود را حذف کنی.
                 </p>
 
-                <!-- خلاصه وضعیت دانشجوها -->
-                <div class="haf-metrics-grid haf-mt">
-                  <div class="haf-metric-card">
-                    <p class="haf-metric-card__label">تعداد کل دانشجوها</p>
-                    <p class="haf-metric-card__value">
-                      {{ formatNumber(studentsStats.total) }}
-                    </p>
-                  </div>
-                  <div class="haf-metric-card">
-                    <p class="haf-metric-card__label">فعال</p>
-                    <p class="haf-metric-card__value">
-                      {{ formatNumber(studentsStats.active) }}
-                    </p>
-                  </div>
-                  <div class="haf-metric-card">
-                    <p class="haf-metric-card__label">لغو / غیرفعال</p>
-                    <p class="haf-metric-card__value">
-                      {{ formatNumber(studentsStats.cancelled) }}
-                    </p>
-                  </div>
-                </div>
-
+                <!-- کارت: لیست دانشجوهای ثبت‌نام‌شده -->
                 <div class="haf-card haf-card--soft haf-mt">
+                  <div class="haf-card__header-row">
+                    <h4 class="haf-card__title">
+                      دانشجوهای ثبت‌نام‌شده در این دوره
+                    </h4>
+                    <span class="haf-chip">
+                      تعداد: {{ formatNumber(students?.length || 0) }} نفر
+                    </span>
+                  </div>
+
                   <table class="haf-table">
                     <thead>
                       <tr>
                         <th>#</th>
                         <th>نام دانشجو</th>
+                        <th>کد/شماره دانشجو</th>
                         <th>موبایل</th>
-                        <th>وضعیت</th>
+                        <th style="width: 120px; text-align: left">اقدام</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-if="!students || students.length === 0">
-                        <td colspan="4" class="haf-table__empty">
+                        <td colspan="5" class="haf-table__empty">
                           هنوز دانشجویی برای این دوره ثبت‌نام نشده است.
                         </td>
                       </tr>
-                      <tr
-                        v-for="(st, idx) in students"
-                        :key="st.id || st.enrollment_id || st.student_id || idx"
-                      >
+                      <tr v-for="(st, idx) in students" :key="st.id || idx">
                         <td>{{ idx + 1 }}</td>
-                        <td>
-                          {{ st.full_name || st.student_name || '—' }}
+                        <td>{{ st.full_name || st.student_name || "—" }}</td>
+                        <td class="haf-mono">
+                          {{ st.code || st.student_code || "—" }}
                         </td>
-                        <td>
-                          <span class="haf-mono">
-                            {{ st.phone || st.student_phone || '—' }}
-                          </span>
+                        <td class="haf-mono">
+                          {{ st.phone || st.student_phone || "—" }}
                         </td>
-                        <td>
-                          {{ formatStudentStatus(st.status) }}
+                        <td style="text-align: left">
+                          <button
+                            type="button"
+                            class="haf-btn haf-btn--ghost haf-btn--xs"
+                            :disabled="unenrollingId === st.id"
+                            @click="unenrollStudent(st)"
+                          >
+                            {{
+                              unenrollingId === st.id
+                                ? "در حال حذف..."
+                                : "حذف از دوره"
+                            }}
+                          </button>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-              </section>
 
+                <!-- کارت: افزودن دانشجو -->
+                <div class="haf-card haf-card--soft haf-mt">
+                  <h4 class="haf-card__title">افزودن دانشجو به دوره</h4>
+                  <p class="haf-field__hint" style="margin-bottom: 10px">
+                    فقط دانشجوهایی نمایش داده می‌شوند که
+                    <strong>حذف نشده‌اند</strong> (is_deleted = False) و هنوز در
+                    این دوره ثبت‌نام نکرده‌اند.
+                  </p>
+
+                  <div class="haf-student-form-grid">
+                    <div class="haf-field haf-field--full">
+                      <label class="haf-field__label"> انتخاب دانشجو </label>
+                      <select v-model="studentToEnroll" class="haf-input">
+                        <option value="">یک دانشجو انتخاب کنید...</option>
+                        <option
+                          v-for="st in studentsOptions"
+                          :key="st.id"
+                          :value="st.id"
+                        >
+                          {{ st.full_name }} – {{ st.phone || "بدون موبایل" }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div
+                      class="haf-field haf-field--full"
+                      style="display: flex; justify-content: flex-end; gap: 8px"
+                    >
+                      <button
+                        type="button"
+                        class="haf-btn haf-btn--ghost"
+                        @click="reloadAll"
+                      >
+                        رفرش لیست
+                      </button>
+
+                      <button
+                        type="button"
+                        class="haf-btn haf-btn--primary"
+                        :disabled="!studentToEnroll || enrolling"
+                        @click="enrollSelectedStudent"
+                      >
+                        {{ enrolling ? "در حال ثبت‌نام..." : "افزودن به دوره" }}
+                      </button>
+                    </div>
+                  </div>
+
+                  <p
+                    v-if="!studentsOptions || studentsOptions.length === 0"
+                    class="haf-field__hint"
+                    style="margin-top: 4px"
+                  >
+                    در حال حاضر دانشجوی فعالی که خارج از این دوره باشد پیدا نشد؛
+                    برای اضافه کردن دانشجوهای جدید، ابتدا آن‌ها را در بخش
+                    «دانشجوها» ثبت کن.
+                  </p>
+                </div>
+              </section>
               <!-- تب مالی -->
               <section
                 v-else-if="activeTab === 'finance'"
                 class="haf-tabs__panel"
               >
-                <h3 class="haf-tabs__panel-title">
-                  وضعیت مالی دوره
-                </h3>
+                <h3 class="haf-tabs__panel-title">وضعیت مالی دوره</h3>
                 <p class="haf-tabs__panel-desc">
-                  خلاصه‌ای از وضعیت مالی دوره، شامل شهریه‌ها، مبالغ دریافت‌شده و مانده.
-                  اتصال کامل این بخش به ماژول اقساط در فاز بعدی انجام می‌شود.
+                  خلاصه‌ای از وضعیت مالی دوره، شامل شهریه‌ها، مبالغ دریافت‌شده و
+                  مانده. اتصال کامل این بخش به ماژول اقساط در فاز بعدی انجام
+                  می‌شود.
                 </p>
 
                 <!-- محاسبات ساده بر اساس شهریه * تعداد دانشجو -->
@@ -437,7 +472,9 @@
                     </p>
                   </div>
                   <div class="haf-metric-card">
-                    <p class="haf-metric-card__label">تعداد دانشجوهای ثبت‌نام‌شده</p>
+                    <p class="haf-metric-card__label">
+                      تعداد دانشجوهای ثبت‌نام‌شده
+                    </p>
                     <p class="haf-metric-card__value">
                       {{ formatNumber(students?.length || 0) }} نفر
                     </p>
@@ -447,7 +484,8 @@
                     <p class="haf-metric-card__value">
                       {{
                         formatNumber(
-                          (course.fee_per_student || 0) * (students?.length || 0),
+                          (course.fee_per_student || 0) *
+                            (students?.length || 0)
                         )
                       }}
                       تومان
@@ -456,50 +494,72 @@
                 </div>
 
                 <!-- اگر بک‌اند برای این دوره خلاصه مالی بده -->
-                <div
-                  v-if="finance"
-                  class="haf-card haf-card--soft haf-mt"
-                >
+                <div v-if="finance" class="haf-card haf-card--soft haf-mt">
                   <h4 class="haf-card__title">خلاصه مالی از بک‌اند</h4>
                   <dl class="haf-detail-list">
                     <div class="haf-detail-row">
                       <dt>شهریه اسمی کل</dt>
-                      <dd>{{ formatNumber(finance.face || finance.total_face || 0) }} تومان</dd>
+                      <dd>
+                        {{
+                          formatNumber(finance.face || finance.total_face || 0)
+                        }}
+                        تومان
+                      </dd>
                     </div>
                     <div class="haf-detail-row">
                       <dt>مجموع دریافتی</dt>
-                      <dd>{{ formatNumber(finance.received || finance.total_received || 0) }} تومان</dd>
+                      <dd>
+                        {{
+                          formatNumber(
+                            finance.received || finance.total_received || 0
+                          )
+                        }}
+                        تومان
+                      </dd>
                     </div>
                     <div class="haf-detail-row">
                       <dt>مطالبات باز</dt>
                       <dd class="haf-text-danger">
-                        {{ formatNumber(finance.remain || finance.total_receivables || 0) }} تومان
+                        {{
+                          formatNumber(
+                            finance.remain || finance.total_receivables || 0
+                          )
+                        }}
+                        تومان
                       </dd>
                     </div>
                     <div class="haf-detail-row">
                       <dt>سهم منتور</dt>
-                      <dd>{{ formatNumber(finance.mentor_share || 0) }} تومان</dd>
+                      <dd>
+                        {{ formatNumber(finance.mentor_share || 0) }} تومان
+                      </dd>
                     </div>
                     <div class="haf-detail-row">
                       <dt>پرداخت‌شده به منتور</dt>
-                      <dd>{{ formatNumber(finance.mentor_paid || 0) }} تومان</dd>
+                      <dd>
+                        {{ formatNumber(finance.mentor_paid || 0) }} تومان
+                      </dd>
                     </div>
                     <div class="haf-detail-row">
                       <dt>مانده تسویه منتور</dt>
-                      <dd :class="finance.mentor_due > 0 ? 'haf-text-danger' : 'haf-text-success'">
+                      <dd
+                        :class="
+                          finance.mentor_due > 0
+                            ? 'haf-text-danger'
+                            : 'haf-text-success'
+                        "
+                      >
                         {{ formatNumber(finance.mentor_due || 0) }} تومان
                       </dd>
                     </div>
                   </dl>
                 </div>
 
-                <div
-                  v-else
-                  class="haf-card haf-card--soft haf-mt"
-                >
+                <div v-else class="haf-card haf-card--soft haf-mt">
                   <p class="haf-empty-state">
-                    برای مدیریت جزئیات اقساط و تراکنش‌ها، از ماژول «اقساط» استفاده کن.
-                    (اتصال مستقیم این تب به API مالی در مرحله بعدی تکمیل می‌شود.)
+                    برای مدیریت جزئیات اقساط و تراکنش‌ها، از ماژول «اقساط»
+                    استفاده کن. (اتصال مستقیم این تب به API مالی در مرحله بعدی
+                    تکمیل می‌شود.)
                   </p>
                 </div>
               </section>
@@ -526,7 +586,9 @@
               </li>
               <li>
                 <span>شهریه هر دانشجو</span>
-                <strong>{{ formatNumber(course.fee_per_student || 0) }} تومان</strong>
+                <strong
+                  >{{ formatNumber(course.fee_per_student || 0) }} تومان</strong
+                >
               </li>
             </ul>
           </section>
@@ -534,25 +596,26 @@
       </div>
     </section>
 
-    <section
-      v-else
-      class="haf-card haf-mt"
-    >
-      دوره پیدا نشد.
-    </section>
+    <section v-else class="haf-card haf-mt">دوره پیدا نشد.</section>
   </section>
 </template>
 
 <script setup>
-import '../students/students.page.css'
-import './courses.page.css'
-import { ref, computed } from 'vue'
-import { useRuntimeConfig } from '#app'
-import { useCourseProfile } from './courses.page.js'
+import "../students/students.page.css";
+import "./courses.page.css";
+import { ref, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useRuntimeConfig } from "#app";
+import { useCourseProfile } from "./courses.page.js";
 
-definePageMeta({
-  middleware: ['auth'],
-})
+definePageMeta({ middleware: ["auth"] });
+
+function formatStatusLabel(s) {
+  const v = (s || "").toUpperCase();
+  if (v === "ARCHIVED") return "آرشیو";
+  if (v === "DRAFT") return "پیش‌نویس";
+  return "فعال";
+}
 
 const {
   loading,
@@ -560,133 +623,81 @@ const {
   course,
   sessions,
   students,
+  studentsOptions,
   finance,
+  kpis,
   formatNumber,
   formatDate,
+  formatTime,
+  getInitials,
   goBack,
-  goToEdit,
-} = useCourseProfile()
+  reloadAll,
+  studentToEnroll,
+  enrolling,
+  unenrollingId,
+  enrollSelectedStudent,
+  unenrollStudent,
+  generatingSessions,
+  generateSessionsAndOpen,
+} = useCourseProfile();
 
-const activeTab = ref('overview')
+const activeTab = ref("overview");
+const router = useRouter();
+const route = useRoute();
 
-// تنظیم base URL بک‌اند برای لینک حضور و غیاب
-const config = useRuntimeConfig()
-const apiBase = config.public?.apiBase || ''
-// اگر apiBase شبیه http://localhost:5000/api باشد، /api را حذف می‌کنیم
-const backendBase = apiBase.replace(/\/api\/?$/, '')
+// ---------- helpers ----------
+const todayISO = () => new Date().toISOString().slice(0, 10);
 
-// KPI جلسات بر اساس داده‌های API /api/courses/<id>/sessions
-const sessionsStats = computed(() => {
-  const list = sessions?.value || []
-  let totalSessions = list.length
-  let totalAttendance = 0
-  let totalPresent = 0
-  let totalAbsent = 0
+const todaySession = computed(() => {
+  const t = todayISO()
+  const list = sessions.value || []
 
-  for (const s of list) {
-    const stats = s?.stats || {}
-    const present = Number(
-      stats.present ??
-      stats.PRESENT ??
-      stats.present_count ??
-      0,
-    ) || 0
-    const absent = Number(
-      stats.absent ??
-      stats.ABSENT ??
-      stats.absent_count ??
-      0,
-    ) || 0
-    const total = Number(
-      stats.total ??
-      stats.total_attendance ??
-      s.total_attendance ??
-      (Array.isArray(s.attendances) ? s.attendances.length : 0),
-    ) || 0
+  return list.find(s => {
+    const raw = s.session_date || s.date
+    if (!raw) return false
 
-    totalPresent += present
-    totalAbsent += absent
-    totalAttendance += total
-  }
-
-  return {
-    totalSessions,
-    totalAttendance,
-    totalPresent,
-    totalAbsent,
-  }
+    // raw ممکنه Date، string با T، یا string با فاصله باشه
+    const iso = new Date(raw).toISOString().slice(0, 10)
+    return iso === t
+  }) || null
 })
 
-// KPI دانشجوها
-const studentsStats = computed(() => {
-  const list = students?.value || []
-  const total = list.length
-  let active = 0
-  let cancelled = 0
+/**
+ * سعی می‌کنیم به روت‌های فرانت بریم.
+ * اگر هیچ‌کدوم وجود نداشت → می‌ریم به صفحه Jinja جزئیات جلسه.
+ */
+function openSessionSmart(sessionId) {
+  const cid = course.value?.id || route.params.id;
+  if (!sessionId) return;
 
-  for (const st of list) {
-    const s = (st.status || '').toUpperCase()
-    if (s === 'ACTIVE' || s === 'REGISTERED') active++
-    else if (s === 'CANCELLED' || s === 'DROPPED') cancelled++
+  // روت‌های محتمل فرانت (به ترتیب اولویت)
+  const candidates = [
+    `/courses/${cid}/sessions/${sessionId}`, // اگر nested ساخته باشی
+    `/sessions/${sessionId}`, // اگر صفحه سشن جداست
+    `/attendance/${cid}/session/${sessionId}`, // الگوی قدیمی که تو jinja هم بود
+  ];
+
+  for (const path of candidates) {
+    const resolved = router.resolve(path);
+    if (resolved?.matched?.length) {
+      router.push(path);
+      return;
+    }
   }
 
-  return { total, active, cancelled }
-})
-
-function formatStatusLabel (s) {
-  const v = (s || '').toUpperCase()
-  if (v === 'ARCHIVED') return 'آرشیو'
-  if (v === 'DRAFT') return 'پیش‌نویس'
-  return 'فعال'
+  // فول‌بک به بک‌اند (طبق قالب‌های Jinja)
+  window.open(`http://localhost:5000/sessions/${sessionId}`, "_blank");
 }
 
-function formatSessionStatus (session) {
-  const v = (session?.status || '').toUpperCase()
-  if (!v || v === 'PLANNED') return 'برنامه‌ریزی شده'
-  if (v === 'DONE' || v === 'HELD') return 'برگزار شده'
-  if (v === 'CANCELLED') return 'لغو شده'
-  return session.status || 'نامشخص'
+function goToTodaySession() {
+  if (!todaySession.value) {
+    alert("برای امروز جلسه‌ای ثبت نشده.");
+    return;
+  }
+  openSessionSmart(todaySession.value.id);
 }
 
-function formatStudentStatus (s) {
-  const v = (s || '').toUpperCase()
-  if (v === 'ACTIVE' || v === 'REGISTERED') return 'فعال'
-  if (v === 'CANCELLED' || v === 'DROPPED') return 'لغو شده'
-  return s || 'نامشخص'
-}
-
-// خلاصه حضور و غیاب برای هر جلسه (حاضر / غایب / کل)
-function sessionAttendanceSummary (session) {
-  if (!session) return '—'
-  const stats = session.stats || {}
-  const present = Number(
-    stats.present ??
-    stats.PRESENT ??
-    stats.present_count ??
-    0,
-  ) || 0
-  const absent = Number(
-    stats.absent ??
-    stats.ABSENT ??
-    stats.absent_count ??
-    0,
-  ) || 0
-  const total = Number(
-    stats.total ??
-    stats.total_attendance ??
-    session.total_attendance ??
-    (Array.isArray(session.attendances) ? session.attendances.length : 0),
-  ) || 0
-
-  if (!total) return '—'
-
-  return `${formatNumber(present)} حاضر / ${formatNumber(absent)} غایب از ${formatNumber(total)}`
-}
-
-// لینک رفتن به صفحه حضور و غیاب بک‌اند
-function sessionAttendanceLink (session) {
-  if (!course?.value?.id || !session?.id) return null
-  const base = backendBase || ''
-  return `${base}/courses/${course.value.id}/attendance?session_id=${session.id}`
+function viewSession(s) {
+  openSessionSmart(s?.id);
 }
 </script>

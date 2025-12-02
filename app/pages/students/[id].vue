@@ -405,21 +405,21 @@
                 <!-- خلاصه مالی -->
                 <div class="haf-metrics-grid haf-mt">
                   <div class="haf-metric-card">
+                    <p class="haf-metric-card__label">کل بدهی</p>
+                    <p class="haf-metric-card__value">
+                      {{ formatNumber(financeTotals.total_face) }} تومان
+                    </p>
+                  </div>
+                  <div class="haf-metric-card ">
+                    <p class="haf-metric-card__label">مجموع پرداختی </p>
+                    <p class="haf-metric-card__value text-emerald-600" style="color: green;">
+                      {{ formatNumber(financeTotals.total_paid) }} تومان
+                    </p>
+                  </div>
+                  <div class="haf-metric-card">
                     <p class="haf-metric-card__label">مانده حساب کل</p>
-                    <p class="haf-metric-card__value">
-                      {{ formatNumber(financeTotals.total_face) }}تومان
-                    </p>
-                  </div>
-                  <div class="haf-metric-card">
-                    <p class="haf-metric-card__label">اقساط فعال</p>
-                    <p class="haf-metric-card__value">
-                      {{ formatNumber(financeTotals.total_paid) }}
-                    </p>
-                  </div>
-                  <div class="haf-metric-card">
-                    <p class="haf-metric-card__label">مجموع پرداخت‌شده</p>
-                    <p class="haf-metric-card__value">
-                      {{ formatNumber(financeTotals.total_remain) }}تومان
+                    <p class="haf-metric-card__value" style="color: red;">
+                      {{ formatNumber(financeTotals.total_debt) }} تومان
                     </p>
                   </div>
                 </div>
@@ -676,13 +676,13 @@
                     </div>
                     <div class="haf-metric-card">
                       <p class="haf-metric-card__label">مبلغ پرداخت‌شده</p>
-                      <p class="haf-metric-card__value">
+                      <p class="haf-metric-card__value" style="color: green;">
                         {{ formatMoneyFa(installmentSummary.sum_paid) }} تومان
                       </p>
                     </div>
                     <div class="haf-metric-card">
-                      <p class="haf-metric-card__label">مانده اقساط</p>
-                      <p class="haf-metric-card__value haf-text-danger">
+                      <p class="haf-metric-card__value haf-text-danger" style="color: red;">
+                        <p class="haf-metric-card__label">مانده اقساط</p>
                         {{ formatMoneyFa(installmentSummary.sum_remain) }} تومان
                       </p>
                     </div>
@@ -932,7 +932,7 @@
               </li>
               <li>
                 <span>مانده حساب</span>
-                <strong>{{ formatNumber(summaryStats.balance) }} تومان</strong>
+                <strong style="color: red;">{{ formatNumber(summaryStats.balance) }} تومان</strong>
               </li>
             </ul>
           </section>
@@ -1557,38 +1557,36 @@ const paymentCourseOptions = computed(() => {
 
 // خلاصه مالی برای کارت‌های تب مالی
 const financeTotals = computed(() => {
-  // از خلاصه اقساط
-  const inst = installmentSummary.value || {};
-  const sumTotal = Number(inst.sum_total || 0);
-  const sumPaidFromInstallments = Number(inst.sum_paid || 0);
+  const items = financeSummary.value?.items || [];
 
-  // از لیست تراکنش‌ها
-  const paymentsList = payments.value || [];
-  const sumPaidFromPayments = paymentsList.reduce((acc, p) => {
-    if (!p) return acc;
-    const amt = Number(p.amount || 0);
-    if (Number.isNaN(amt)) return acc;
+  let totalFace = 0;
+  let totalReceived = 0;
+  let totalRemain = 0;
 
-    // اگر نوع تراکنش داری (INCOME / REFUND)، اینجا می‌تونی منفی/مثبت کنی
-    const kind = (p.type || p.kind || "INCOME").toString().toUpperCase();
-    if (kind === "REFUND") {
-      return acc - amt;
-    }
-    return acc + amt;
-  }, 0);
+  for (const row of items) {
+    // شهریه اسمی هر دوره
+    const face = row?.fee ?? row?.total.fee ?? 0;
 
-  // فعلاً فرض می‌کنیم تمام شهریه‌ی دانشجو در اقساط آمده
-  const total_face = sumTotal;
+    // مبلغ دریافت‌شده برای هر دوره
+    const received = Number(row?.paid ?? 0);
 
-  // هر کدوم از دو منبع پرداخت بیشتر بود، مبنا می‌گیریم (برای هم‌خوانی)
-  const total_paid = Math.max(sumPaidFromInstallments, sumPaidFromPayments);
+    // مانده هر دوره
+    const remain = row?.remain ?? face - received ?? 0;
 
-  const total_remain = Math.max(total_face - total_paid, 0);
+    totalFace += Number(face || 0);
+    totalReceived += Number(received || 0);
+    totalRemain += Number(remain || 0);
+  }
+
+  // این همون «کل بدهی» است
+  const totalDebt = totalRemain;
 
   return {
-    total_face,
-    total_paid,
-    total_remain,
+    // اگر جایی در UI از این‌ها استفاده می‌کنی
+    total_face: totalFace,
+    total_paid: totalReceived, // 🔴 این همون مجموع ستون «دریافت شده» است
+    total_debt: totalDebt, // مجموع مانده همه دوره‌ها
+    balance: totalDebt, // اگر «مانده حساب کل» رو از این می‌خونی
   };
 });
 
@@ -1841,7 +1839,7 @@ const summaryStats = computed(() => {
     (skillsTech.value?.length || 0) + (skillsSoft.value?.length || 0);
 
   // مانده حساب از خلاصه مالی
-  const balance = financeTotals.value?.total_remain || 0;
+  const balance = financeTotals.value?.total_debt || 0;
 
   return {
     coursesCount,

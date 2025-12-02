@@ -3,9 +3,7 @@
     <!-- هدر و KPIها -->
     <header class="haf-finance-header">
       <div>
-        <h1 class="haf-finance-title">
-          داشبورد مالی
-        </h1>
+        <h1 class="haf-finance-title">داشبورد مالی</h1>
         <p class="haf-finance-subtitle">
           نمای کلی شهریه‌ها، مطالبات، تسویه منتورها و هزینه‌ها در هم‌افزار.
         </p>
@@ -78,10 +76,7 @@
 
         <div class="haf-tabs__panels">
           <!-- 🟢 تب نمای کلی -->
-          <section
-            v-if="activeTab === 'overview'"
-            class="haf-tabs__panel"
-          >
+          <section v-if="activeTab === 'overview'" class="haf-tabs__panel">
             <h2 class="haf-tabs__panel-title">نمای کلی مالی</h2>
             <p class="haf-tabs__panel-desc">
               خلاصه‌ای از روند درآمد، معوقات، اقساط نزدیک و هزینه‌های ماه جاری.
@@ -113,16 +108,12 @@
                     </div>
                   </div>
                 </div>
-                <p v-else class="haf-empty-state">
-                  داده‌ای برای نمایش نیست.
-                </p>
+                <p v-else class="haf-empty-state">داده‌ای برای نمایش نیست.</p>
               </div>
 
               <!-- A/R Aging -->
               <div class="haf-card haf-card--soft">
-                <h3 class="haf-card__title">
-                  A/R Aging (معوقات به تفکیک روز)
-                </h3>
+                <h3 class="haf-card__title">A/R Aging (معوقات به تفکیک روز)</h3>
                 <div class="haf-table-wrapper">
                   <table class="haf-table">
                     <thead>
@@ -135,10 +126,10 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td>{{ formatMoney(aging['0-30'] || 0) }}</td>
-                        <td>{{ formatMoney(aging['31-60'] || 0) }}</td>
-                        <td>{{ formatMoney(aging['61-90'] || 0) }}</td>
-                        <td>{{ formatMoney(aging['90+'] || 0) }}</td>
+                        <td>{{ formatMoney(aging["0-30"] || 0) }}</td>
+                        <td>{{ formatMoney(aging["31-60"] || 0) }}</td>
+                        <td>{{ formatMoney(aging["61-90"] || 0) }}</td>
+                        <td>{{ formatMoney(aging["90+"] || 0) }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -161,15 +152,19 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr
-                        v-for="(p, idx) in upcoming7"
-                        :key="idx"
-                      >
+                      <tr v-for="(p, idx) in upcoming7" :key="idx">
                         <td>
-                          {{ p.student_name || p.student?.full_name || p.note || '—' }}
+                          {{
+                            p.student_name ||
+                            p.student?.full_name ||
+                            p.note ||
+                            "—"
+                          }}
                         </td>
-                        <td>{{ p.due || p.due_date || '—' }}</td>
-                        <td>{{ formatMoney(p.amount || p.amount_total || 0) }}</td>
+                        <td>{{ p.due || p.due_date || "—" }}</td>
+                        <td>
+                          {{ formatMoney(p.amount || p.amount_total || 0) }}
+                        </td>
                       </tr>
                       <tr v-if="!upcoming7.length">
                         <td colspan="3" class="haf-empty-state">
@@ -194,10 +189,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr
-                        v-for="(c, idx) in topCoursesMTD"
-                        :key="idx"
-                      >
+                      <tr v-for="(c, idx) in topCoursesMTD" :key="idx">
                         <td>{{ c.title }}</td>
                         <td>{{ formatNumber(c.count || 0) }}</td>
                         <td>{{ formatMoney(c.amount || 0) }}</td>
@@ -226,10 +218,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr
-                        v-for="(val, cat) in expenseByCat"
-                        :key="cat"
-                      >
+                      <tr v-for="(val, cat) in expenseByCat" :key="cat">
                         <td>{{ cat }}</td>
                         <td>{{ formatMoney(val || 0) }}</td>
                       </tr>
@@ -269,17 +258,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="(it, idx) in receivables"
-                    :key="idx"
-                  >
+                  <tr v-for="(it, idx) in receivables" :key="idx">
                     <td>{{ idx + 1 }}</td>
                     <td>{{ it.student_name }}</td>
                     <td>{{ it.course_title }}</td>
                     <td>{{ formatMoney(it.fee || it.face || 0) }}</td>
                     <td>{{ formatMoney(it.received || it.paid || 0) }}</td>
                     <td
-                      :class="(it.balance || it.remain || 0) > 0 ? 'haf-text-danger' : 'haf-text-success'"
+                      :class="
+                        (it.balance || it.remain || 0) > 0
+                          ? 'haf-text-danger'
+                          : 'haf-text-success'
+                      "
                     >
                       {{ formatMoney(computeBalance(it)) }}
                     </td>
@@ -296,9 +286,7 @@
                     </td>
                   </tr>
                   <tr v-if="!receivables.length">
-                    <td colspan="7" class="haf-empty-state">
-                      موردی یافت نشد.
-                    </td>
+                    <td colspan="7" class="haf-empty-state">موردی یافت نشد.</td>
                   </tr>
                 </tbody>
               </table>
@@ -306,10 +294,7 @@
           </section>
 
           <!-- 🔵 تب دوره‌ها -->
-          <section
-            v-else-if="activeTab === 'courses'"
-            class="haf-tabs__panel"
-          >
+          <section v-else-if="activeTab === 'courses'" class="haf-tabs__panel">
             <h2 class="haf-tabs__panel-title">صورت‌حساب دوره‌ها</h2>
             <p class="haf-tabs__panel-desc">
               خلاصه مالی هر دوره شامل شهریه، دریافتی، مانده و سهم منتور.
@@ -331,10 +316,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="(r, idx) in coursesSummary"
-                    :key="idx"
-                  >
+                  <tr v-for="(r, idx) in coursesSummary" :key="idx">
                     <td>{{ idx + 1 }}</td>
                     <td>
                       <button
@@ -345,18 +327,20 @@
                         {{ r.course_title || r.course?.title }}
                       </button>
                     </td>
-                    <td>{{ r.students || r.students_count || '—' }}</td>
+                    <td>{{ r.students || r.students_count || "—" }}</td>
                     <td>{{ formatMoney(r.face || r.fee || 0) }}</td>
                     <td>{{ formatMoney(r.received || r.paid || 0) }}</td>
-                    <td
-                      :class="(r.remain || 0) > 0 ? 'haf-text-danger' : ''"
-                    >
+                    <td :class="(r.remain || 0) > 0 ? 'haf-text-danger' : ''">
                       {{ formatMoney(r.remain || 0) }}
                     </td>
                     <td>{{ formatMoney(r.mentor_share || 0) }}</td>
                     <td>{{ formatMoney(r.mentor_paid || 0) }}</td>
                     <td
-                      :class="(r.mentor_due || 0) > 0 ? 'haf-text-danger' : 'haf-text-success'"
+                      :class="
+                        (r.mentor_due || 0) > 0
+                          ? 'haf-text-danger'
+                          : 'haf-text-success'
+                      "
                     >
                       {{ formatMoney(r.mentor_due || 0) }}
                     </td>
@@ -372,13 +356,11 @@
           </section>
 
           <!-- 🟣 تب منتورها -->
-          <section
-            v-else-if="activeTab === 'mentors'"
-            class="haf-tabs__panel"
-          >
+          <section v-else-if="activeTab === 'mentors'" class="haf-tabs__panel">
             <h2 class="haf-tabs__panel-title">تسویه منتورها</h2>
             <p class="haf-tabs__panel-desc">
-              وضعیت مانده تسویه هر منتور بر اساس سهم دوره‌ها و پرداخت‌های ثبت‌شده.
+              وضعیت مانده تسویه هر منتور بر اساس سهم دوره‌ها و پرداخت‌های
+              ثبت‌شده.
             </p>
 
             <div class="haf-table-wrapper haf-mt">
@@ -395,10 +377,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="(r, idx) in mentorsSummary"
-                    :key="idx"
-                  >
+                  <tr v-for="(r, idx) in mentorsSummary" :key="idx">
                     <td>{{ idx + 1 }}</td>
                     <td>
                       <button
@@ -414,7 +393,11 @@
                     <td>{{ formatMoney(r.share || 0) }}</td>
                     <td>{{ formatMoney(r.paid || 0) }}</td>
                     <td
-                      :class="(r.due || 0) > 0 ? 'haf-text-danger' : 'haf-text-success'"
+                      :class="
+                        (r.due || 0) > 0
+                          ? 'haf-text-danger'
+                          : 'haf-text-success'
+                      "
                     >
                       {{ formatMoney(r.due || 0) }}
                     </td>
@@ -452,17 +435,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="(p, idx) in installments"
-                    :key="idx"
-                  >
+                  <tr v-for="(p, idx) in installments" :key="idx">
                     <td>{{ idx + 1 }}</td>
                     <td>{{ p.title }}</td>
-                    <td>{{ p.course_title || p.course?.title || '—' }}</td>
-                    <td>{{ p.due || p.due_date || '—' }}</td>
+                    <td>{{ p.course_title || p.course?.title || "—" }}</td>
+                    <td>{{ p.due || p.due_date || "—" }}</td>
                     <td>{{ formatMoney(p.amount || p.amount_total || 0) }}</td>
-                    <td :class="p.overdue ? 'haf-text-danger' : 'haf-text-success'">
-                      {{ p.overdue ? 'معوق' : 'باز' }}
+                    <td
+                      :class="
+                        p.overdue ? 'haf-text-danger' : 'haf-text-success'
+                      "
+                    >
+                      {{ p.overdue ? "معوق" : "باز" }}
                     </td>
                   </tr>
                   <tr v-if="!installments.length">
@@ -476,10 +460,7 @@
           </section>
 
           <!-- 🧱 تب دارایی‌ها -->
-          <section
-            v-else-if="activeTab === 'assets'"
-            class="haf-tabs__panel"
-          >
+          <section v-else-if="activeTab === 'assets'" class="haf-tabs__panel">
             <h2 class="haf-tabs__panel-title">دارایی‌ها</h2>
             <p class="haf-tabs__panel-desc">
               فهرست دارایی‌های ثبت‌شده در سیستم (اگر ماژول Asset فعال باشد).
@@ -493,7 +474,6 @@
                     {{ formatMoney(assetsTotal || 0) }} تومان
                   </span>
                 </div>
-                <!-- بعداً می‌تونیم این دکمه را به صفحه مدیریت دارایی وصل کنیم -->
                 <button
                   type="button"
                   class="haf-btn haf-btn--primary haf-btn--sm"
@@ -517,17 +497,14 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr
-                      v-for="(a, idx) in assets"
-                      :key="idx"
-                    >
+                    <tr v-for="(a, idx) in assets" :key="idx">
                       <td>{{ idx + 1 }}</td>
                       <td :title="a.notes || ''">{{ a.name }}</td>
-                      <td>{{ a.category || '—' }}</td>
-                      <td>{{ a.purchase_date || '—' }}</td>
+                      <td>{{ a.category || "—" }}</td>
+                      <td>{{ a.purchase_date || "—" }}</td>
                       <td>{{ formatMoney(a.purchase_price || 0) }}</td>
-                      <td>{{ a.quantity || '—' }}</td>
-                      <td>{{ a.status || '—' }}</td>
+                      <td>{{ a.quantity || "—" }}</td>
+                      <td>{{ a.status || "—" }}</td>
                       <td>{{ formatMoney(assetTotalValue(a)) }}</td>
                     </tr>
                     <tr v-if="!assets.length">
@@ -545,10 +522,7 @@
           </section>
 
           <!-- 🧾 تب هزینه‌ها -->
-          <section
-            v-else-if="activeTab === 'expenses'"
-            class="haf-tabs__panel"
-          >
+          <section v-else-if="activeTab === 'expenses'" class="haf-tabs__panel">
             <h2 class="haf-tabs__panel-title">هزینه‌ها</h2>
             <p class="haf-tabs__panel-desc">
               هزینه‌های ثبت‌شده به تفکیک دسته، روش پرداخت و وضعیت.
@@ -557,8 +531,7 @@
             <div class="haf-card haf-card--soft haf-expenses-summary">
               <div>
                 <strong>هزینه ماه جاری:</strong>
-                {{ formatMoney(expenseKpis.mtd || 0) }} تومان
-                &nbsp;|&nbsp;
+                {{ formatMoney(expenseKpis.mtd || 0) }} تومان &nbsp;|&nbsp;
                 <strong>مجموع کل هزینه‌ها:</strong>
                 {{ formatMoney(expenseKpis.total || 0) }} تومان
               </div>
@@ -584,18 +557,21 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="(ex, idx) in expenses"
-                    :key="idx"
-                  >
+                  <tr v-for="(ex, idx) in expenses" :key="idx">
                     <td>{{ idx + 1 }}</td>
-                    <td>{{ ex.title || '—' }}</td>
-                    <td>{{ ex.category || 'سایر' }}</td>
-                    <td>{{ ex.payment_label || ex.payment_method || '—' }}</td>
-                    <td>{{ ex.status || '—' }}</td>
-                    <td>{{ ex.date || ex.paid_date || ex.expense_date || '—' }}</td>
+                    <td>{{ ex.title || "—" }}</td>
+                    <td>{{ ex.category || "سایر" }}</td>
+                    <td>{{ ex.payment_label || ex.payment_method || "—" }}</td>
+                    <td>{{ ex.status || "—" }}</td>
+                    <td>
+                      {{ ex.date || ex.paid_date || ex.expense_date || "—" }}
+                    </td>
                     <td class="haf-text-strong">
-                      {{ formatMoney(ex.total_amount || ex.amount_total || ex.amount || 0) }}
+                      {{
+                        formatMoney(
+                          ex.total_amount || ex.amount_total || ex.amount || 0
+                        )
+                      }}
                     </td>
                   </tr>
                   <tr v-if="!expenses.length">
@@ -607,12 +583,13 @@
               </table>
             </div>
 
-            <!-- چیپ‌های خلاصه هزینه‌های ماه جاری به تفکیک دسته -->
             <div
               v-if="Object.keys(expenseByCat).length"
               class="haf-card haf-card--soft haf-mt"
             >
-              <p class="haf-card__title">تفکیک هزینه‌های ماه جاری به تفکیک دسته</p>
+              <p class="haf-card__title">
+                تفکیک هزینه‌های ماه جاری به تفکیک دسته
+              </p>
               <div class="haf-chips-row">
                 <span
                   v-for="(val, cat) in expenseByCat"
@@ -631,12 +608,12 @@
 </template>
 
 <script setup>
-import './finance.page.css'
-import { useFinancePage } from './finance.page.js'
+import "./finance.page.css";
+import { useFinancePage } from "./finance.page.js";
 
 definePageMeta({
-  middleware: ['auth'],
-})
+  middleware: ["auth"],
+});
 
 const {
   loading,
@@ -670,5 +647,5 @@ const {
   goToStudentFinance,
   goToMentor,
   goToCourse,
-} = useFinancePage()
+} = useFinancePage();
 </script>

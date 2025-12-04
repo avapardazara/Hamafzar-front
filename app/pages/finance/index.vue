@@ -419,7 +419,9 @@
           >
             <h2 class="haf-tabs__panel-title">اقساط</h2>
             <p class="haf-tabs__panel-desc">
-              لیست اقساط باز و معوق به تفکیک برنامه و دوره.
+              لیست اقساط باز و معوق به تفکیک برنامه و دوره. برای هر قسط
+              می‌توانید به پروفایل دانشجو یا صفحهٔ دوره بروید و پرداخت را در
+              آنجا ثبت کنید.
             </p>
 
             <div class="haf-table-wrapper haf-mt">
@@ -432,13 +434,26 @@
                     <th>سررسید</th>
                     <th>مبلغ</th>
                     <th>وضعیت</th>
+                    <th>اقدام</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(p, idx) in installments" :key="idx">
+                  <tr v-for="(p, idx) in installments" :key="p.id || idx">
                     <td>{{ idx + 1 }}</td>
                     <td>{{ p.title }}</td>
-                    <td>{{ p.course_title || p.course?.title || "—" }}</td>
+                    <td>
+                      <button
+                        v-if="p.course_id"
+                        type="button"
+                        class="haf-link-btn"
+                        @click="goToCourse(p.course_id)"
+                      >
+                        {{ p.course_title || p.course?.title || "—" }}
+                      </button>
+                      <span v-else>
+                        {{ p.course_title || p.course?.title || "—" }}
+                      </span>
+                    </td>
                     <td>{{ p.due || p.due_date || "—" }}</td>
                     <td>{{ formatMoney(p.amount || p.amount_total || 0) }}</td>
                     <td
@@ -448,9 +463,29 @@
                     >
                       {{ p.overdue ? "معوق" : "باز" }}
                     </td>
+                    <td>
+                      <div class="haf-actions">
+                        <button
+                          v-if="p.student_id"
+                          type="button"
+                          class="haf-link-btn"
+                          @click="goToStudentFinance(p.student_id)"
+                        >
+                          پروفایل دانشجو
+                        </button>
+                        <button
+                          v-if="p.course_id"
+                          type="button"
+                          class="haf-link-btn"
+                          @click="goToCourse(p.course_id)"
+                        >
+                          دوره
+                        </button>
+                      </div>
+                    </td>
                   </tr>
                   <tr v-if="!installments.length">
-                    <td colspan="6" class="haf-empty-state">
+                    <td colspan="7" class="haf-empty-state">
                       قسطی برای نمایش نیست.
                     </td>
                   </tr>
@@ -458,7 +493,6 @@
               </table>
             </div>
           </section>
-
           <!-- 🧱 تب دارایی‌ها -->
           <section v-else-if="activeTab === 'assets'" class="haf-tabs__panel">
             <h2 class="haf-tabs__panel-title">دارایی‌ها</h2>
@@ -516,6 +550,7 @@
                 </table>
               </div>
             </div>
+
             <div v-else class="haf-card haf-card--soft haf-mt">
               مدل دارایی‌ها (Asset) هنوز در سیستم تعریف نشده است.
             </div>
